@@ -522,13 +522,15 @@ New-Item -ItemType Directory -Force -Path $configDir | Out-Null
 
     <div class="what-youll-need">
         <ul>
-            <li><code style="color: #c8b478;">morning</code> &mdash; a morning briefing based on your practice, transits, and recent themes. On Sundays it automatically includes a weekly synthesis and forecast.</li>
-            <li><code style="color: #c8b478;">evening</code> &mdash; an evening reflection and day-arc reading</li>
+            <li><code style="color: #c8b478;">morning</code> &mdash; reads your entries, interprets them, writes depth content back to the app, gives you a briefing. On Sundays it automatically includes the weekly synthesis, forecast, and thread refresh. On the 1st of the month it writes the monthly synthesis and forecast.</li>
+            <li><code style="color: #c8b478;">evening</code> &mdash; interprets the evening pull, completes the day's arc, picks up anything morning missed. If morning didn't run on a Sunday or the 1st, evening handles the weekly or monthly work.</li>
+            <li><code style="color: #c8b478;">midday</code> <em>(optional)</em> &mdash; a lighter check-in that catches entries logged between morning and evening</li>
         </ul>
     </div>
     <p>Try typing <strong>morning</strong> and pressing Enter. Claude will read your data and write a briefing that appears in the Hermeer app.</p>
+    <p class="note">Everything the app can display from a depth companion &mdash; interpretations, briefings, field readings, arcs, syntheses, forecasts, thread notes, moon notes &mdash; is produced by these two commands. Nothing is left out.</p>
     <div class="success">
-        <p>That's it. CLI mode is set up. Your morning and evening commands are ready.</p>
+        <p>That's it. CLI mode is set up. Morning and evening handle everything.</p>
     </div>
 </div>
 

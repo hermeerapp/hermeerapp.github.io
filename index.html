@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermeer — Setup</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0a0a;
+            color: #d4c5a0;
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: #e8d9b0;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #e8d9b0;
+            border-bottom: 1px solid rgba(200, 180, 120, 0.15);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            color: #c8b478;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #b0a080;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #8a7a5a;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            background: #111;
+            border: 1px solid rgba(200, 180, 120, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #c8b478;
+            margin-bottom: 0.5rem;
+        }
+
+        .step h3 {
+            margin-top: 0;
+        }
+
+        .command-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(200, 180, 120, 0.15);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin: 0.8rem 0;
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 0.85rem;
+            color: #e8d9b0;
+            overflow-x: auto;
+            position: relative;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .command-block:hover {
+            border-color: rgba(200, 180, 120, 0.4);
+        }
+
+        .command-block::after {
+            content: 'click to copy';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.8rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            font-size: 0.65rem;
+            color: #8a7a5a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .command-block.copied::after {
+            content: 'copied';
+            color: #c8b478;
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: #8a7a5a;
+            font-style: italic;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .config-block {
+            background: #1a1a1a;
+            border: 1px solid rgba(200, 180, 120, 0.15);
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 0.8rem 0;
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            font-size: 0.8rem;
+            color: #c8b478;
+            white-space: pre;
+            overflow-x: auto;
+            cursor: pointer;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+
+        .config-block:hover {
+            border-color: rgba(200, 180, 120, 0.4);
+        }
+
+        .config-block::after {
+            content: 'click to copy';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.8rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            font-size: 0.65rem;
+            color: #8a7a5a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .config-block.copied::after {
+            content: 'copied';
+            color: #c8b478;
+        }
+
+        .warning {
+            background: rgba(200, 150, 50, 0.08);
+            border-left: 3px solid rgba(200, 150, 50, 0.3);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .warning p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        a {
+            color: #c8b478;
+            text-decoration: underline;
+            text-decoration-color: rgba(200, 180, 120, 0.3);
+            text-underline-offset: 3px;
+        }
+
+        a:hover {
+            text-decoration-color: rgba(200, 180, 120, 0.7);
+        }
+
+        .mode-nav {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .mode-nav a {
+            display: block;
+            flex: 1;
+            background: #111;
+            border: 1px solid rgba(200, 180, 120, 0.15);
+            border-radius: 10px;
+            padding: 1.2rem;
+            text-decoration: none;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .mode-nav a:hover {
+            border-color: rgba(200, 180, 120, 0.4);
+        }
+
+        .mode-nav .mode-name {
+            font-size: 1.1rem;
+            color: #e8d9b0;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .mode-nav .mode-desc {
+            font-size: 0.8rem;
+            color: #8a7a5a;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(200, 180, 120, 0.1);
+            margin: 3rem 0;
+        }
+
+        .what-youll-need {
+            background: #111;
+            border: 1px solid rgba(200, 180, 120, 0.1);
+            border-radius: 10px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .what-youll-need ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .what-youll-need li {
+            padding: 0.3rem 0;
+            color: #b0a080;
+            font-size: 0.95rem;
+        }
+
+        .what-youll-need li::before {
+            content: '\2022';
+            color: #c8b478;
+            margin-right: 0.6rem;
+        }
+
+        .success {
+            background: rgba(100, 180, 100, 0.08);
+            border-left: 3px solid rgba(100, 180, 100, 0.3);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .success p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #90b090;
+        }
+
+        @media (max-width: 500px) {
+            body { padding: 1.5rem 1rem; }
+            h1 { font-size: 1.5rem; }
+            .mode-nav { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Hermeer</h1>
+<p class="subtitle">Setup guides for Desktop and CLI modes</p>
+
+<p>These guides walk you through connecting Hermeer to a depth companion on your computer. If you've never used Terminal before, that's completely fine &mdash; every step is explained.</p>
+
+<div class="mode-nav">
+    <a href="#desktop">
+        <span class="mode-name">Desktop</span>
+        <span class="mode-desc">~15 minutes</span>
+    </a>
+    <a href="#cli">
+        <span class="mode-name">CLI</span>
+        <span class="mode-desc">~30 minutes</span>
+    </a>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== DESKTOP MODE ==================== -->
+
+<h2 id="desktop">Desktop Mode</h2>
+
+<p>Desktop mode connects Claude Desktop (Anthropic's computer app) to your Hermeer data. Claude reads your entries, pulls, and threads &mdash; then writes interpretations back. They appear in the Hermeer app automatically.</p>
+
+<div class="what-youll-need">
+    <p style="color: #c8b478; margin-bottom: 0.5rem; font-size: 0.85rem;">What you'll need</p>
+    <ul>
+        <li>A Mac or Windows computer</li>
+        <li>A Claude Pro or Max subscription from Anthropic</li>
+        <li>About 15 minutes</li>
+    </ul>
+</div>
+
+<!-- Step 1: Open Terminal -->
+<div class="step">
+    <div class="step-number">Step 1</div>
+    <h3>Open Terminal</h3>
+    <p>Terminal is a built-in app on your Mac where you can type commands. You'll use it for a few of these steps.</p>
+    <p><strong>How to find it:</strong> Press <strong>Command + Space</strong> (the Spotlight search bar appears). Type <strong>Terminal</strong> and press Enter.</p>
+    <p>A window with a dark or white background and a blinking cursor will open. That's Terminal. You'll paste commands into this window.</p>
+    <p class="note">On Windows: use PowerShell instead of Terminal. Press the Windows key, type "PowerShell", and open it.</p>
+</div>
+
+<!-- Step 2: Install Node.js -->
+<div class="step">
+    <div class="step-number">Step 2</div>
+    <h3>Install Node.js</h3>
+    <p>Node.js is a free tool your computer needs to run the Hermeer connector. You only install it once.</p>
+    <p><strong>Mac:</strong> Paste this into Terminal and press Enter:</p>
+    <div class="command-block" onclick="copyCommand(this)">brew install node</div>
+    <p class="note">If you see "command not found: brew" &mdash; that's okay. It means you need to install Homebrew first. Paste this into Terminal and press Enter, then try the command above again:</p>
+    <div class="command-block" onclick="copyCommand(this)">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</div>
+    <p class="note">Alternatively, you can download Node.js directly from <a href="https://nodejs.org" target="_blank">nodejs.org</a> &mdash; click the big green button and install it like any other app.</p>
+    <p><strong>Windows:</strong> Go to <a href="https://nodejs.org" target="_blank">nodejs.org</a>, download the installer, and run it. Use all the default options.</p>
+</div>
+
+<!-- Step 3: Install the Hermeer connector -->
+<div class="step">
+    <div class="step-number">Step 3</div>
+    <h3>Install the Hermeer connector</h3>
+    <p>This downloads a small piece of software that lets Claude Desktop talk to your Hermeer data.</p>
+    <p>Paste this into Terminal and press Enter:</p>
+    <div class="command-block" onclick="copyCommand(this)">git clone https://github.com/hermeerapp/hermeer-mcp-server.git ~/.hermeer-mcp-server && cd ~/.hermeer-mcp-server && npm install && npm run build</div>
+    <p>You'll see a bunch of text scroll by. When it finishes and you see the blinking cursor again, it worked.</p>
+    <div class="warning">
+        <p>If you see errors mentioning "git: command not found" &mdash; install the Xcode command line tools first. Paste this and press Enter: <code>xcode-select --install</code>. A popup will appear &mdash; click Install, wait for it to finish, then try the command above again.</p>
+    </div>
+</div>
+
+<!-- Step 4: Download Claude Desktop -->
+<div class="step">
+    <div class="step-number">Step 4</div>
+    <h3>Download Claude Desktop</h3>
+    <p>If you don't have it yet, download Claude Desktop from Anthropic.</p>
+    <p><strong>Mac:</strong> Go to <a href="https://claude.ai/download" target="_blank">claude.ai/download</a>, download the Mac version, and drag it into your Applications folder.</p>
+    <p><strong>Windows:</strong> Same link &mdash; download the Windows version and run the installer.</p>
+    <p>Open Claude Desktop and sign in with your Anthropic account.</p>
+</div>
+
+<!-- Step 5: Connect them -->
+<div class="step">
+    <div class="step-number">Step 5</div>
+    <h3>Connect the Hermeer connector to Claude Desktop</h3>
+    <p>Claude Desktop needs to know about the connector you just installed. You'll do this by editing a settings file.</p>
+    <p><strong>Mac:</strong> Paste this into Terminal and press Enter:</p>
+    <div class="config-block" onclick="copyCommand(this)">mkdir -p ~/Library/Application\ Support/Claude && cat > ~/Library/Application\ Support/Claude/claude_desktop_config.json << 'EOF'
+{
+  "mcpServers": {
+    "hermeer": {
+      "command": "node",
+      "args": ["$HOME/.hermeer-mcp-server/dist/index.js"]
+    }
+  }
+}
+EOF</div>
+    <p class="note">If you already have other MCP servers configured in Claude Desktop, you'll need to merge this into your existing config file rather than replacing it. Open the file at ~/Library/Application Support/Claude/claude_desktop_config.json and add the "hermeer" entry inside "mcpServers".</p>
+    <p>Now quit Claude Desktop completely (<strong>Cmd+Q</strong> on Mac) and reopen it.</p>
+</div>
+
+<!-- Step 6: Set up your Depth Work project -->
+<div class="step">
+    <div class="step-number">Step 6</div>
+    <h3>Set up your Depth Work project</h3>
+    <p>In Claude Desktop:</p>
+    <ol style="padding-left: 1.2rem; color: #b0a080; margin: 0.5rem 0;">
+        <li style="margin-bottom: 0.5rem;">Click <strong>Projects</strong> in the sidebar</li>
+        <li style="margin-bottom: 0.5rem;">Click <strong>Create Project</strong></li>
+        <li style="margin-bottom: 0.5rem;">Name it <strong>Depth Work</strong></li>
+        <li style="margin-bottom: 0.5rem;">Click the project, then click <strong>Set project instructions</strong></li>
+        <li style="margin-bottom: 0.5rem;">Paste the companion instructions from Hermeer. To get them: open Hermeer on your phone, go to <strong>Settings &rarr; Depth Companion &rarr; Copy Project Instructions</strong></li>
+    </ol>
+    <p class="note">This is the one time you'll need to move text from your phone to your computer. The easiest ways: email it to yourself, paste it into a note (Apple Notes syncs between devices), or use AirDrop.</p>
+</div>
+
+<!-- Step 7: Try it -->
+<div class="step">
+    <div class="step-number">Step 7</div>
+    <h3>Try it</h3>
+    <p>Open a new chat inside your Depth Work project and say:</p>
+    <p style="color: #e8d9b0; font-style: italic;">"Read my current state and tell me what's alive."</p>
+    <p>Claude will read your practice data through the connector and respond with a depth reading. Any interpretations it writes will appear in the Hermeer app on the entries they reference.</p>
+    <div class="success">
+        <p>That's it. Desktop mode is set up. Claude Desktop can now read your entries, pulls, dreams, and threads &mdash; and write interpretations back to the app.</p>
+    </div>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== CLI MODE ==================== -->
+
+<h2 id="cli">CLI Mode</h2>
+
+<p>CLI mode adds automation on top of Desktop mode &mdash; morning briefings, evening readings, and weekly syntheses that run on a schedule and appear in the app. It uses Claude Code, Anthropic's command-line tool.</p>
+
+<div class="warning">
+    <p><strong>Complete Desktop mode first.</strong> CLI mode builds on top of it.</p>
+</div>
+
+<div class="what-youll-need">
+    <p style="color: #c8b478; margin-bottom: 0.5rem; font-size: 0.85rem;">What you'll need</p>
+    <ul>
+        <li>Desktop mode already set up (see above)</li>
+        <li>A Claude Max subscription (CLI mode uses Claude Code, which requires Max)</li>
+        <li>About 15 more minutes</li>
+    </ul>
+</div>
+
+<!-- Step A: Install Claude Code -->
+<div class="step">
+    <div class="step-number">Step A</div>
+    <h3>Install Claude Code</h3>
+    <p>Claude Code is a command-line version of Claude that can run automated tasks. Paste this into Terminal:</p>
+    <div class="command-block" onclick="copyCommand(this)">npm install -g @anthropic-ai/claude-code</div>
+    <p>When it finishes, type <code>claude</code> and press Enter to make sure it works. You should see Claude Code start up. Type <code>/exit</code> to close it.</p>
+</div>
+
+<!-- Step B: Run the setup script -->
+<div class="step">
+    <div class="step-number">Step B</div>
+    <h3>Run the setup script</h3>
+    <p>This script sets up your depth practice commands. It will ask you a few questions (birth data, sync folder location) and create everything automatically.</p>
+    <p>Paste this into Terminal:</p>
+    <div class="command-block" onclick="copyCommand(this)">curl -sO https://raw.githubusercontent.com/hermeerapp/hermeer-mcp-server/main/scripts/setup-depth-practice.sh && bash setup-depth-practice.sh</div>
+    <p>Follow the prompts. When it finishes, close Terminal and reopen it (so the new commands are available).</p>
+</div>
+
+<!-- Step C: Try your new commands -->
+<div class="step">
+    <div class="step-number">Step C</div>
+    <h3>Try your new commands</h3>
+    <p>You now have three commands you can type in Terminal anytime:</p>
+    <div class="what-youll-need">
+        <ul>
+            <li><code style="color: #c8b478;">morning</code> &mdash; a morning briefing based on your practice, transits, and recent themes</li>
+            <li><code style="color: #c8b478;">evening</code> &mdash; an evening reflection and day-arc reading</li>
+            <li><code style="color: #c8b478;">sunday</code> &mdash; a weekly reading and synthesis (runs automatically on Sunday mornings, or anytime you want)</li>
+        </ul>
+    </div>
+    <p>Try typing <code>morning</code> in Terminal and pressing Enter. Claude will read your data and write a briefing that appears in the Hermeer app.</p>
+    <div class="success">
+        <p>That's it. CLI mode is set up. Your morning and evening commands are ready, and weekly readings will run automatically on Sundays.</p>
+    </div>
+</div>
+
+<hr class="divider">
+
+<h2>Troubleshooting</h2>
+
+<div class="step">
+    <h3>"command not found" errors</h3>
+    <p>This usually means a tool wasn't installed properly. Try closing Terminal completely (Cmd+Q) and reopening it. If the problem persists, go back to the step where you installed that tool and try again.</p>
+</div>
+
+<div class="step">
+    <h3>Interpretations aren't appearing in the app</h3>
+    <p>Make sure your Hermeer sync folder is set up. In the Hermeer app: <strong>Settings &rarr; Sync</strong>. The connector looks for your data in the sync folder &mdash; if sync isn't configured, there's nothing to read.</p>
+</div>
+
+<div class="step">
+    <h3>Claude Desktop doesn't see the connector</h3>
+    <p>After editing the config file (Step 5), you must completely quit Claude Desktop (<strong>Cmd+Q</strong>, not just close the window) and reopen it. Check that the config file path is correct by pasting this in Terminal:</p>
+    <div class="command-block" onclick="copyCommand(this)">cat ~/Library/Application\ Support/Claude/claude_desktop_config.json</div>
+    <p>You should see the "hermeer" entry. If the file is empty or missing, go back to Step 5.</p>
+</div>
+
+<div class="step">
+    <h3>Need more help?</h3>
+    <p>Reach out at <a href="mailto:hermeerapp@gmail.com">hermeerapp@gmail.com</a>.</p>
+</div>
+
+<script>
+function copyCommand(el) {
+    const text = el.innerText.replace(/click to copy|copied/g, '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+        el.classList.add('copied');
+        setTimeout(() => el.classList.remove('copied'), 2000);
+    });
+}
+</script>
+
+</body>
+</html>

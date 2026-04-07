@@ -209,7 +209,7 @@
     </a>
     <a href="#cli">
         <span class="mode-name">CLI</span>
-        <span class="mode-desc">Mac only &middot; ~30 min</span>
+        <span class="mode-desc">Mac or Windows &middot; ~30 min</span>
     </a>
 </div>
 
@@ -441,10 +441,6 @@ New-Item -ItemType Directory -Force -Path $configDir | Out-Null
 <p>CLI mode adds automation on top of Desktop mode &mdash; morning briefings, evening readings, and weekly syntheses that run on a schedule and appear in the app. It uses Claude Code, Anthropic's command-line tool.</p>
 
 <div class="warning">
-    <p><strong>Mac only.</strong> CLI mode uses shell scripts and Terminal commands that only work on Mac. Windows support may come in the future.</p>
-</div>
-
-<div class="warning">
     <p><strong>Complete Desktop mode first.</strong> CLI mode builds on top of it.</p>
 </div>
 
@@ -452,6 +448,7 @@ New-Item -ItemType Directory -Force -Path $configDir | Out-Null
     <p style="color: #c8b478; margin-bottom: 0.5rem; font-size: 0.85rem;">What you'll need</p>
     <ul>
         <li>Desktop mode already set up (see above)</li>
+        <li>A Mac or Windows computer</li>
         <li>A Claude Max subscription (CLI mode uses Claude Code, which requires Max)</li>
         <li>About 15 more minutes</li>
     </ul>
@@ -461,9 +458,24 @@ New-Item -ItemType Directory -Force -Path $configDir | Out-Null
 <div class="step">
     <div class="step-number">Step A</div>
     <h3>Install Claude Code</h3>
-    <p>Claude Code is a command-line version of Claude that can run automated tasks. Paste this into Terminal and press Enter:</p>
-    <div class="command-block" onclick="copyCommand(this)">npm install -g @anthropic-ai/claude-code</div>
-    <p>When it finishes, type <strong>claude</strong> and press Enter to make sure it works. You should see Claude Code start up. Type <strong>/exit</strong> to close it.</p>
+    <p>Claude Code is a command-line version of Claude that can run automated tasks.</p>
+
+    <div class="platform-tabs" data-group="cA">
+        <div class="platform-tab active" onclick="switchTab('cA', 'mac', this)">Mac</div>
+        <div class="platform-tab" onclick="switchTab('cA', 'win', this)">Windows</div>
+    </div>
+    <div class="platform-content">
+        <div class="platform-section active" data-group="cA" data-platform="mac">
+            <p>Paste this into Terminal and press Enter:</p>
+            <div class="command-block" onclick="copyCommand(this)">npm install -g @anthropic-ai/claude-code</div>
+            <p>When it finishes, type <strong>claude</strong> and press Enter to make sure it works. You should see Claude Code start up. Type <strong>/exit</strong> to close it.</p>
+        </div>
+        <div class="platform-section" data-group="cA" data-platform="win">
+            <p>Paste this into PowerShell and press Enter:</p>
+            <div class="command-block" onclick="copyCommand(this)">npm install -g @anthropic-ai/claude-code</div>
+            <p>When it finishes, type <strong>claude</strong> and press Enter to make sure it works. You should see Claude Code start up. Type <strong>/exit</strong> to close it.</p>
+        </div>
+    </div>
 </div>
 
 <!-- Step B: Run the setup script -->
@@ -471,23 +483,50 @@ New-Item -ItemType Directory -Force -Path $configDir | Out-Null
     <div class="step-number">Step B</div>
     <h3>Run the setup script</h3>
     <p>This script sets up your depth practice commands. It will ask you a few questions (your name, birth data, where your Hermeer sync folder is) and create everything automatically.</p>
-    <p>Paste this into Terminal and press Enter:</p>
-    <div class="command-block" onclick="copyCommand(this)">curl -sO https://raw.githubusercontent.com/hermeerapp/hermeer-mcp-server/main/scripts/setup-depth-practice.sh && bash setup-depth-practice.sh</div>
-    <p>Follow the prompts. When it finishes, <strong>close Terminal and reopen it</strong> so the new commands become available.</p>
+
+    <div class="platform-tabs" data-group="cB">
+        <div class="platform-tab active" onclick="switchTab('cB', 'mac', this)">Mac</div>
+        <div class="platform-tab" onclick="switchTab('cB', 'win', this)">Windows</div>
+    </div>
+    <div class="platform-content">
+        <div class="platform-section active" data-group="cB" data-platform="mac">
+            <p>Paste this into Terminal and press Enter:</p>
+            <div class="command-block" onclick="copyCommand(this)">curl -sO https://raw.githubusercontent.com/hermeerapp/hermeer-mcp-server/main/scripts/setup-depth-practice.sh && bash setup-depth-practice.sh</div>
+            <p>Follow the prompts. When it finishes, <strong>close Terminal and reopen it</strong> so the new commands become available.</p>
+        </div>
+        <div class="platform-section" data-group="cB" data-platform="win">
+            <p>Paste this into PowerShell and press Enter:</p>
+            <div class="command-block" onclick="copyCommand(this)">Invoke-WebRequest -Uri "https://raw.githubusercontent.com/hermeerapp/hermeer-mcp-server/main/scripts/setup-depth-practice.ps1" -OutFile "setup-depth-practice.ps1"; powershell -ExecutionPolicy Bypass -File "setup-depth-practice.ps1"</div>
+            <p>Follow the prompts. When it finishes, <strong>close PowerShell and reopen it</strong> so the new commands become available.</p>
+        </div>
+    </div>
 </div>
 
 <!-- Step C: Try your new commands -->
 <div class="step">
     <div class="step-number">Step C</div>
     <h3>Try your new commands</h3>
-    <p>You now have two commands you can type in Terminal anytime:</p>
+
+    <div class="platform-tabs" data-group="cC">
+        <div class="platform-tab active" onclick="switchTab('cC', 'mac', this)">Mac</div>
+        <div class="platform-tab" onclick="switchTab('cC', 'win', this)">Windows</div>
+    </div>
+    <div class="platform-content">
+        <div class="platform-section active" data-group="cC" data-platform="mac">
+            <p>You now have two commands you can type in Terminal anytime:</p>
+        </div>
+        <div class="platform-section" data-group="cC" data-platform="win">
+            <p>You now have two commands you can type in PowerShell anytime:</p>
+        </div>
+    </div>
+
     <div class="what-youll-need">
         <ul>
             <li><code style="color: #c8b478;">morning</code> &mdash; a morning briefing based on your practice, transits, and recent themes. On Sundays it automatically includes a weekly synthesis and forecast.</li>
             <li><code style="color: #c8b478;">evening</code> &mdash; an evening reflection and day-arc reading</li>
         </ul>
     </div>
-    <p>Try typing <strong>morning</strong> in Terminal and pressing Enter. Claude will read your data and write a briefing that appears in the Hermeer app.</p>
+    <p>Try typing <strong>morning</strong> and pressing Enter. Claude will read your data and write a briefing that appears in the Hermeer app.</p>
     <div class="success">
         <p>That's it. CLI mode is set up. Your morning and evening commands are ready.</p>
     </div>

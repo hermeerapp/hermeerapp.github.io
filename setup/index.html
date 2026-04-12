@@ -326,11 +326,11 @@
     <div class="platform-content">
         <div class="platform-section active" data-group="s4" data-platform="mac">
             <p>Paste this into Terminal and press Enter:</p>
-            <div class="command-block" onclick="copyCommand(this)">git clone https://github.com/hermeerapp/hermeer-mcp-server.git ~/.hermeer-mcp-server && cd ~/.hermeer-mcp-server && npm install && npm run build</div>
+            <div class="command-block" onclick="copyCommand(this)">npm install -g hermeer-mcp-server</div>
         </div>
         <div class="platform-section" data-group="s4" data-platform="win">
             <p>Paste this into PowerShell and press Enter:</p>
-            <div class="command-block" onclick="copyCommand(this)">git clone https://github.com/hermeerapp/hermeer-mcp-server.git $HOME\.hermeer-mcp-server; cd $HOME\.hermeer-mcp-server; npm install; npm run build</div>
+            <div class="command-block" onclick="copyCommand(this)">npm install -g hermeer-mcp-server</div>
         </div>
     </div>
     <p>You'll see a bunch of text scroll by. When it finishes and you see the blinking cursor again, it worked.</p>
@@ -373,8 +373,8 @@
 {
   "mcpServers": {
     "hermeer": {
-      "command": "node",
-      "args": ["$HOME/.hermeer-mcp-server/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "hermeer-mcp-server"]
     }
   }
 }
@@ -389,8 +389,8 @@ New-Item -ItemType Directory -Force -Path $configDir | Out-Null
 {
   "mcpServers": {
     "hermeer": {
-      "command": "node",
-      "args": ["$HOME\\.hermeer-mcp-server\\dist\\index.js"]
+      "command": "npx",
+      "args": ["-y", "hermeer-mcp-server"]
     }
   }
 }
